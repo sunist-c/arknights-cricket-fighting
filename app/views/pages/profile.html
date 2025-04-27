@@ -1,0 +1,273 @@
+{{ define "profile.html" }}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }} - 明日方舟斗蛐蛐活动</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #ff7e00;
+            --dark-color: #121212;
+            --darker-color: #0a0a0a;
+            --light-border: rgba(255, 255, 255, 0.1);
+            --heavy-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            background: url('https://web-ipv6.hycdn.cn/hypergryph/official/assets/img/03.3ccb66.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-color);
+            box-shadow: var(--heavy-shadow);
+            position: relative;
+            z-index: 1;
+        }
+        
+        main {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .industrial-card {
+            background-color: rgba(18, 18, 18, 0.85);
+            border: 1px solid var(--light-border);
+            border-radius: 0;
+            box-shadow: var(--heavy-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        
+        .industrial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid var(--primary-color);
+            padding: 15px;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .industrial-btn {
+            background-color: var(--darker-color);
+            color: white;
+            border: 1px solid var(--primary-color);
+            border-radius: 0;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: var(--heavy-shadow);
+        }
+        
+        .industrial-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .form-control {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid var(--light-border);
+            border-radius: 0;
+            color: #fff;
+            padding: 10px 15px;
+        }
+        
+        .form-control:focus {
+            background-color: rgba(40, 40, 40, 0.7);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(0, 168, 255, 0.25);
+            color: #fff;
+        }
+        
+        .form-check-input {
+            background-color: rgba(30, 30, 30, 0.7);
+            border: 1px solid var(--light-border);
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .info-row {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .footer {
+            background-color: rgba(10, 10, 10, 0.9);
+            color: #666;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--light-border);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">明日方舟斗蛐蛐活动</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {{ if .user }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">个人中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">退出</a>
+                    </li>
+                    {{ else }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">注册</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="industrial-card mb-4">
+                    <div class="card-header">
+                        <h3>个人信息</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <strong>用户名：</strong>{{ .user.Username }}
+                                </div>
+                                <div class="info-row">
+                                    <strong>邮箱：</strong>{{ .user.Email }}
+                                </div>
+                                <div class="info-row">
+                                    <strong>QQ：</strong>{{ .user.QQ }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-row">
+                                    <strong>积分：</strong>{{ .user.Points }}
+                                </div>
+                                <div class="info-row">
+                                    <strong>报名状态：</strong>{{ if .user.IsRegistered }}已报名{{ else }}未报名{{ end }}
+                                </div>
+                                <div class="info-row">
+                                    <strong>复赛分组：</strong>{{ .user.Group }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="industrial-card mb-4">
+                    <div class="card-header">
+                        <h3>地址信息</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="addressForm">
+                            <div class="mb-3">
+                                <label for="address" class="form-label">收货地址</label>
+                                <textarea class="form-control" id="address" name="address" rows="3" required>{{ .user.Address }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">联系电话</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{ .user.Phone }}" required>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="industrial-btn">保存地址</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {{ if not .user.IsRegistered }}
+                <div class="industrial-card">
+                    <div class="card-header">
+                        <h3>活动报名</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="participantForm">
+                            <div class="mb-3">
+                                <label class="form-label">参赛声明</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="licenseAccept" name="licenseAccept" required>
+                                    <label class="form-check-label" for="licenseAccept">
+                                        我已阅读并同意活动规则
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="industrial-btn">确认报名</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 明日方舟斗蛐蛐活动</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
+{{ end }} 

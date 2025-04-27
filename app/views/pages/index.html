@@ -1,0 +1,460 @@
+{{ define "index.html" }}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }} - 明日方舟斗蛐蛐活动</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #ff7e00;
+            --dark-color: #121212;
+            --darker-color: #0a0a0a;
+            --light-border: rgba(255, 255, 255, 0.1);
+            --heavy-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: var(--heavy-shadow);
+        }
+        
+        .hero-section {
+            height: 100vh;
+            background: url('https://web-ipv6.hycdn.cn/hypergryph/official/assets/img/01.7e6a24.jpg') no-repeat center center;
+            background-size: cover;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 5px;
+            background-color: var(--primary-color);
+        }
+        
+        .content-section {
+            padding: 100px 0;
+            background-color: var(--dark-color);
+            position: relative;
+        }
+        
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+        
+        .industrial-card {
+            background-color: var(--darker-color);
+            border: 2px solid var(--light-border);
+            border-radius: 0;
+            box-shadow: var(--heavy-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .industrial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .industrial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+        }
+        
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid var(--primary-color);
+            color: #fff;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .industrial-btn {
+            background-color: var(--darker-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+            border-radius: 0;
+            padding: 12px 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--heavy-shadow);
+        }
+        
+        .industrial-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background-color: var(--darker-color);
+            color: #666;
+            padding: 30px 0;
+            border-top: 3px solid var(--light-border);
+        }
+        
+        .timeline {
+            padding: 20px;
+        }
+        
+        .timeline-item {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item h4 {
+            margin-top: 0;
+            font-weight: 700;
+        }
+        
+        .stage-details {
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 15px;
+            margin: 10px 0;
+        }
+        
+        .rules-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .rules-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-border);
+        }
+        
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .rules-list li::before {
+            content: '▶';
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">明日方舟斗蛐蛐活动</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {{ if .user }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">个人中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">退出</a>
+                    </li>
+                    {{ else }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">注册</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="display-3 mb-4">明日方舟斗蛐蛐活动</h1>
+            <p class="lead mb-4">参与罗德岛最具趣味性的蛐蛐对战活动</p>
+            <a href="/register" class="industrial-btn btn-lg">立即报名</a>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">活动流程</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="industrial-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">初赛阶段</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stage-details">
+                                <h5>分组规则</h5>
+                                <ul class="rules-list">
+                                    <li>所有报名选手随机分组，每组最多7人参赛</li>
+                                    <li>剩余1人为直播观察者（不参与对决）</li>
+                                    <li>直播观察者每轮自动跳过对决环节</li>
+                                </ul>
+                            </div>
+                            <div class="stage-details">
+                                <h5>对决规则</h5>
+                                <ul class="rules-list">
+                                    <li>选手通过"礼物对决"模式比拼</li>
+                                    <li>被淘汰选手直接退出初赛</li>
+                                    <li>所有小组完成一轮对决后，统计得分</li>
+                                    <li>总排名前列者晋级复赛</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industrial-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">复赛阶段</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stage-details">
+                                <h5>分组规则</h5>
+                                <ul class="rules-list">
+                                    <li>晋级选手随机均分至若干组</li>
+                                    <li>每组人数尽量接近7人</li>
+                                </ul>
+                            </div>
+                            <div class="stage-details">
+                                <h5>对决规则</h5>
+                                <ul class="rules-list">
+                                    <li>每组进行一轮"礼物对决"</li>
+                                    <li>计算小组加权得分：</li>
+                                    <li>加权得分 = 小组平均分 + 小组中位分 + （小组最高分 / 小组人数）</li>
+                                    <li>小组两两PK，得分低的小组淘汰</li>
+                                    <li>直至仅剩最后一组晋级决赛</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="industrial-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">决赛阶段</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="stage-details">
+                                <h5>赛程设置</h5>
+                                <ul class="rules-list">
+                                    <li>晋级小组进行2-4轮"礼物对决"</li>
+                                </ul>
+                            </div>
+                            <div class="stage-details">
+                                <h5>计分规则</h5>
+                                <ul class="rules-list">
+                                    <li>当轮得分 = 结算总分 × 决策次数</li>
+                                    <li>被淘汰者当轮得分为0</li>
+                                    <li>累计所有轮次得分</li>
+                                    <li>按最终总分降序排名决出名次</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" style="background-color: var(--darker-color);">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">对决通用规则</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="industrial-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">决策时间限制</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="rules-list">
+                                <li>初赛与决赛阶段，选手仅可在每轮对决最后7秒内提交决策</li>
+                                <li>违规者扣除当轮得分（无论是否获得分数）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="industrial-card h-100">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">腾讯会议规范</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="rules-list">
+                                <li>选手需提前进入指定会议室</li>
+                                <li>修改昵称为"游戏ID#编号"（例：酒植#260）</li>
+                                <li>主持人将按轮次开启选手麦克风，选手可自由交流</li>
+                                <li>禁止嘈杂背景音、谩骂、诋毁、造谣等违反公序良俗的言行</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">直播安排</h2>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="industrial-card">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">直播详情</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>直播平台：</strong>Bilibili，分2-3天完成赛程</p>
+                            <h5 class="mt-4">直播团队分工：</h5>
+                            <ul class="rules-list">
+                                <li><strong>主持人：</strong>全程解说赛事进程</li>
+                                <li><strong>计分员：</strong>实时统计并公示选手得分</li>
+                                <li><strong>指令员：</strong>管理会议室麦克风、提醒选手备赛、维护秩序</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section" style="background-color: var(--darker-color);">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">活动时间</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="industrial-card">
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h4>报名阶段</h4>
+                                    <p>2024年3月1日 - 2024年3月15日</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h4>初赛阶段</h4>
+                                    <p>2024年3月16日 - 2024年3月31日</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h4>复赛阶段</h4>
+                                    <p>2024年3月31日 - 2024年4月1日</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h4>决赛阶段</h4>
+                                    <p>2024年4月1日 - 2024年4月7日</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">注意事项</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="industrial-card">
+                        <div class="card-body">
+                            <ul class="rules-list">
+                                <li>选手需确保设备与网络稳定，若环境嘈杂请提前关闭麦克风</li>
+                                <li>最终解释权归活动主办方所有，违规行为可能导致取消参赛资格</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 明日方舟斗蛐蛐活动</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
+{{ end }} 

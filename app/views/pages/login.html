@@ -1,0 +1,223 @@
+{{ define "login.html" }}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .title }} - 明日方舟斗蛐蛐活动</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/style.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #ff7e00;
+            --dark-color: #121212;
+            --darker-color: #0a0a0a;
+            --light-border: rgba(255, 255, 255, 0.1);
+            --heavy-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: url('https://web-ipv6.hycdn.cn/hypergryph/official/assets/img/02.26dbc9.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-color);
+            box-shadow: var(--heavy-shadow);
+            z-index: 1;
+        }
+        
+        main {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .industrial-card {
+            background-color: rgba(26, 26, 26, 0.9);
+            border: 1px solid var(--light-border);
+            border-radius: 0;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--heavy-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .industrial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .card-header {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid var(--primary-color);
+            padding: 15px;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .industrial-btn {
+            background-color: var(--darker-color);
+            color: white;
+            border: 1px solid var(--primary-color);
+            border-radius: 0;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--heavy-shadow);
+        }
+        
+        .industrial-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background-color: rgba(10, 10, 10, 0.9);
+            color: #666;
+            padding: 20px 0;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--light-border);
+        }
+        
+        .login-box {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(0, 168, 255, 0.1) 50%,
+                transparent 100%
+            );
+            animation: shine 3s infinite;
+        }
+        
+        .login-link {
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .login-link:hover {
+            border-bottom: 1px solid var(--primary-color);
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translate(-30%, -30%) rotate(0deg);
+            }
+            100% {
+                transform: translate(30%, 30%) rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">明日方舟斗蛐蛐活动</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {{ if .user }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">个人中心</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">退出</a>
+                    </li>
+                    {{ else }}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">注册</a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        <div class="row justify-content-center align-items-center" style="min-height: calc(100vh - 200px);">
+            <div class="col-md-6">
+                <div class="industrial-card login-box">
+                    <div class="card-header">
+                        <h3 class="text-center mb-0">登录</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <a href="/api/qq/login" class="industrial-btn btn-lg w-75">
+                                <i class="fab fa-qq me-2"></i> 使用QQ登录
+                            </a>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0">还没有账号？<a href="/register" class="login-link">立即注册</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <span class="text-muted">© 2024 明日方舟斗蛐蛐活动</span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
+{{ end }} 
